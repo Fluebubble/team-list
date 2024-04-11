@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { TestComponent } from './components/TestComponent/TestComponent';
 
 export const App = () => {
   const [counter, setCounter] = useState(0);
@@ -19,6 +20,8 @@ export const App = () => {
       >
         -
       </button>
+
+      <TestComponent />
     </>
   );
 };
