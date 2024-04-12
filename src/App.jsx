@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { TestComponent } from './components/TestComponent/TestComponent';
+import 'modern-normalize';
 
 export const App = () => {
   const [counter, setCounter] = useState(0);
