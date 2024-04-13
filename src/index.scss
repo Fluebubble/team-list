@@ -1,10 +1,10 @@
-@import './styles/';
+@import "./styles/";
 
 @font-face {
-  font-family: 'Nunito';
-  src: url(../public/fonts/Nunito-Regular.ttf);
+  font-family: Nunito;
+  src: url("../public/fonts/Nunito-Regular.ttf");
 }
 
 body {
-  font-family: 'Nunito';
+  font-family: Nunito, sans-serif;
 }
