@@ -1,4 +1,14 @@
-// @font-face {
-//   font-family: 'Nunito';
-//   src: url('../../../public/fonts/Nunito-Regular.ttf');
-// }
+@import './responsive';
+@import '../fonts';
+
+@mixin typographyHeading1 {
+  font-family: Nunito, sans-serif;
+  font-size: 40px;
+  line-height: 40px;
+}
+
+@mixin typographyBody {
+  font-family: Nunito, sans-serif;
+  font-size: 16px;
+  line-height: 26px;
+}

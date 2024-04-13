@@ -1,10 +1,11 @@
+@import '../../node_modules/modern-normalize/modern-normalize';
 @import './fonts';
+@import './mixins/typography';
 
 html {
-  font-family: Nunito, sans-serif;
   background: #15ff00;
 }
 
 button {
-  font-family: Nunito, sans-serif;
+  @include typographyBody;
 }

@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 import { TestComponent } from './components/TestComponent/TestComponent';
-import 'modern-normalize';
+// import 'modern-normalize';
 import { Button } from './components/Button/Button';
+import { Container } from './components/Container/Container';
+import { Menu } from './components/Menu/Menu';
 
 export const App = () => {
   const [counter, setCounter] = useState(0);
 
   return (
-    <>
+    <Container>
+      <Menu />
       <p>Counter {counter}</p>
       <Button>Users</Button>
       <button
@@ -24,6 +27,6 @@ export const App = () => {
       </button>
 
       <TestComponent />
-    </>
+    </Container>
   );
 };
