@@ -3,15 +3,20 @@ import { TestComponent } from './components/TestComponent/TestComponent';
 // import 'modern-normalize';
 import { Button } from './components/Button/Button';
 import { Container } from './components/Container/Container';
-import { Menu } from './components/Header/Header';
+import { Header } from './components/Header/Header';
+import { Hero } from './components/Hero/Hero';
 
 export const App = () => {
   const [counter, setCounter] = useState(0);
 
   return (
-    <Container>
-      <Menu />
-      <p>Counter {counter}</p>
+    <>
+      {/* <Container> */}
+      <Header />
+      <main>
+        <Hero />
+      </main>
+      {/* <p>Counter {counter}</p>
       <Button>Users</Button>
       <button
         type="button"
@@ -24,9 +29,10 @@ export const App = () => {
         onClick={() => setCounter((prevState) => prevState - 1)}
       >
         -
-      </button>
+      </button> */}
 
-      <TestComponent />
-    </Container>
+      {/* <TestComponent /> */}
+      {/* </Container> */}
+    </>
   );
 };

@@ -1,0 +1,49 @@
+@import '../../styles';
+
+.hero {
+  background:
+    linear-gradient(rgba(0 0 0 / 50%), rgba(0 0 0 / 50%)),
+    url("../../../public/images/hero-cover.jpeg");
+  background-size: 350% auto;
+  background-position: bottom;
+  background-repeat: no-repeat;
+
+  padding: 40px 0 71px;
+  margin-bottom: 21px;
+
+  @include onTablet {
+    padding: 89px 162px 88px;
+  }
+
+  @include onDesktop {
+    padding: 164px 262px 163px;
+  }
+
+  @include onBigDesktop {
+    padding: 164px 395px 163px;
+  }
+}
+
+.heroContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title {
+  margin-bottom: 21px;
+
+  @include typographyHeading1;
+
+  color: $white;
+  text-align: center;
+}
+
+.description {
+  margin-bottom: 32px;
+
+  @include typographyBody;
+  color: $white;
+
+  text-align: center;
+}

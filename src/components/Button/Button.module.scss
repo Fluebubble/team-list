@@ -2,13 +2,14 @@
 
 .button {
   min-width: 100px;
+  width: fit-content;
   padding-block: 4px;
 
   border-radius: 30px;
   background-color: $primary-color;
 
   transition: background-color 300ms linear;
-  
+
   &:hover {
     background-color: $button-hover;
     cursor: pointer;
