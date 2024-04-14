@@ -3,7 +3,7 @@ import { TestComponent } from './components/TestComponent/TestComponent';
 // import 'modern-normalize';
 import { Button } from './components/Button/Button';
 import { Container } from './components/Container/Container';
-import { Menu } from './components/Menu/Menu';
+import { Menu } from './components/Header/Header';
 
 export const App = () => {
   const [counter, setCounter] = useState(0);

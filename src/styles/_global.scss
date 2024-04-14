@@ -1,11 +1,23 @@
 @import '../../node_modules/modern-normalize/modern-normalize';
 @import './fonts';
-@import './mixins/typography';
+@import './mixins';
 
 html {
-  background: #15ff00;
+  background-color: $background-color;
+}
+
+body {
+  color: $black-87;
+
+  @include onBigDesktop {
+    padding-inline: 695px
+  }
 }
 
 button {
   @include typographyBody;
+
+  background-color: transparent;
+  border: none;
+  color: $black-87;
 }
