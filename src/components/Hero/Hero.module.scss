@@ -9,7 +9,7 @@
   background-repeat: no-repeat;
 
   padding: 40px 0 71px;
-  margin-bottom: 21px;
+  margin-bottom: $section-margin;
 
   @include onTablet {
     padding: 89px 162px 88px;

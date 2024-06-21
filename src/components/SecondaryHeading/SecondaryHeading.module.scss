@@ -1,0 +1,8 @@
+@import '../../styles';
+
+.secondaryHeading {
+  margin-bottom: 50px;
+
+  @include typographyHeading1;
+  text-align: center;
+}

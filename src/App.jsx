@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
-import { TestComponent } from './components/TestComponent/TestComponent';
+import React from 'react';
+// import { TestComponent } from './components/TestComponent/TestComponent';
 // import 'modern-normalize';
-import { Button } from './components/Button/Button';
-import { Container } from './components/Container/Container';
+// import { Button } from './components/Button/Button';
 import { Header } from './components/Header/Header';
 import { Hero } from './components/Hero/Hero';
+import { EmployeesSection } from './components/EmployeesSection/EmployeesSection';
+import { Container } from './components/Container/Container';
 
 export const App = () => {
-  const [counter, setCounter] = useState(0);
+  // const [counter, setCounter] = useState(0);
 
   return (
     <>
@@ -15,6 +16,9 @@ export const App = () => {
       <Header />
       <main>
         <Hero />
+        <Container>
+          <EmployeesSection />
+        </Container>
       </main>
       {/* <p>Counter {counter}</p>
       <Button>Users</Button>
