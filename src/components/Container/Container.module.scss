@@ -1,0 +1,18 @@
+@import '../../styles/mixins/responsive';
+@import '../../styles/variables/sizes';
+
+.container {
+  padding-inline: $inline-padding-mobile;
+  
+  @include onTablet {
+    padding-inline: $inline-padding-tablet;
+  }
+
+  @include onDesktop {
+    padding-inline: $inline-padding-desktop;
+  }
+
+  @include onBigDesktop {
+    padding-inline: 0;
+  }
+}

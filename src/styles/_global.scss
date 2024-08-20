@@ -1,0 +1,42 @@
+@import '../../node_modules/modern-normalize/modern-normalize';
+@import './fonts';
+@import './mixins';
+
+html {
+  background-color: $background-color;
+}
+
+body {
+  @include typographyBody;
+  color: $black-87;
+
+  @include onBigDesktop {
+    padding-inline: 695px
+  }
+}
+
+button {
+  @include typographyBody;
+
+  background-color: transparent;
+  border: none;
+  color: $black-87;
+}
+
+h1 {
+  margin: 0;
+}
+
+h2 {
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}

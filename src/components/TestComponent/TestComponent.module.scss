@@ -1,0 +1,11 @@
+@import '../../styles/';
+
+.testComponent {
+  padding: 25px;
+  background-color: #005791;
+
+  &_text {
+    font-size: 20px;
+    color: $secondary-color;
+  }
+}
