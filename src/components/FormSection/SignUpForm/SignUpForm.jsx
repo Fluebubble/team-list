@@ -2,13 +2,14 @@ import { Field, Form, Formik, useFormik } from 'formik';
 import { Button } from '../../Button/Button';
 import { useEffect, useState } from 'react';
 import { apiClient } from '../../../api/api';
-import { RotatingLines } from 'react-loader-spinner';
+// import { RotatingLines } from 'react-loader-spinner';
 import styles from './SignUpForm.module.scss';
 
 const POSITIONS_URL = '/positions';
 
 export const SignUpForm = () => {
   const [positions, setPositions] = useState([]);
+  // eslint-disable-next-line no-unused-vars
   const [isLoading, setIsLoading] = useState(false);
 
   const formik = useFormik({

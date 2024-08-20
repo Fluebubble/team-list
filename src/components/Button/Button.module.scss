@@ -1,14 +1,12 @@
 @import '../../styles/variables';
 
 .button {
-  position: relative;
-
   min-width: 100px;
   width: fit-content;
   padding: 4px 18px;
 
   border-radius: 30px;
-  // background-color: $primary-color;
+  background-color: $primary-color;
 
   transition: background-color 300ms linear;
 
