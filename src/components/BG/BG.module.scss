@@ -1,0 +1,23 @@
+@import '../../styles';
+
+.bg {
+  position: absolute;
+  inset: 0;
+
+  // top: 0;
+  // right: 0;
+  // bottom: 0;
+  // left: 0;
+}
+
+.yellow {
+  background-color: $primary-color;
+}
+
+.blue {
+  background-color: $secondary-color;
+}
+
+.lightGray {
+  background-color: $background-color;
+}
