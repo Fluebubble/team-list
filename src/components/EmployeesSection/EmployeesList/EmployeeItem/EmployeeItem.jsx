@@ -1,7 +1,10 @@
+import { formatPhone } from '../../../../helpers';
 import styles from './EmployeeItem.module.scss';
 
 export const EmployeeItem = ({ user }) => {
   const { name, email, phone, position, photo } = user;
+  const formattedPhone = formatPhone(phone);
+
   return (
     <li className={styles.listItem}>
       <img
@@ -15,7 +18,7 @@ export const EmployeeItem = ({ user }) => {
 
         <p className={styles.text}>{email}</p>
 
-        <p className={styles.text}>{phone}</p>
+        <p className={styles.text}>{formattedPhone}</p>
       </div>
     </li>
   );

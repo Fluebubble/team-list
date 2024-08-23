@@ -3,9 +3,20 @@
 .form {
   display: flex;
   flex-direction: column;
-  gap: 50px;
+
+  margin: 0 auto;
+  max-width: 380px;
+
+  // @include onTablet {}
 
   // background-color: #9b0000;
+}
+
+.textFieldsWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  margin-bottom: 43px;
 }
 
 .textFieldLabel {
@@ -38,18 +49,33 @@
   background-color: $background-color;
 }
 
+.textFieldLabelError {
+  color: $error-color;
+}
+
 .textField {
   padding: 13px 16px;
   width: 100%;
   border: 1px solid #D0CFCF;
   border-radius: 4px;
   background-color: $background-color;
+}
 
-  // &:focus.textFieldLabel {
-  //   font-size: 12px;
-  // }
+.tip {
+  position: absolute;
+  bottom: -18px;
+  left: 16px;
+  font-size: 12px;
+  line-height: 14px;
+  color: $label-color;
 
-  // &::placeholder {
-  //   color: #7E7E7E;
-  // }
+  @include onTablet {
+    left: 17px;
+    bottom: -14px;
+  }
+
+  @include onDesktop {
+    left: 16px;
+    bottom: -18px;
+  }
 }
