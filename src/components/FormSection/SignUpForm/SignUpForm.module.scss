@@ -1,0 +1,21 @@
+@import '../../../styles';
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+
+  // background-color: #9b0000;
+}
+
+.textField {
+  padding: 13px 16px;
+  border: 1px solid #D0CFCF;
+  border-radius: 4px;
+  background-color: $background-color;
+
+
+  &::placeholder {
+    color: #7E7E7E;
+  }
+}

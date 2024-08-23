@@ -1,11 +1,16 @@
 @import '../../../styles';
 
+.wrapper {
+  text-align: center;
+}
+
 .list {
   --columns: 1;
   display: grid;
   flex-direction: column;
   gap: 20px;
   grid-template-columns: repeat(var(--columns), minmax(0, 1fr));
+  margin-bottom: 50px;
 
   @include onTablet {
     --columns: 2;
@@ -16,31 +21,4 @@
     --columns: 3;
     gap: 29px;
   }
-}
-
-.listItem {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-  padding: 20px;
-  background-color: $white;
-  border-radius: 10px;
-}
-
-.employeeImg {
-  width: 70px;
-  height: 70px;
-}
-
-.textWrapper {
-  max-width: 100%;
-}
-
-.text {
-  max-width: 100%;
-  text-align: center;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }

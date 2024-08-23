@@ -3,7 +3,7 @@
 .button {
   min-width: 100px;
   width: fit-content;
-  padding-block: 4px;
+  padding: 4px 18px;
 
   border-radius: 30px;
   background-color: $primary-color;
@@ -15,7 +15,7 @@
     cursor: pointer;
   }
 
-  &:disabled{
+  &:disabled {
     background-color: $button-disabled;
   }
 }

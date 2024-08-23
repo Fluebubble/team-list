@@ -6,6 +6,7 @@ import { Header } from './components/Header/Header';
 import { Hero } from './components/Hero/Hero';
 import { EmployeesSection } from './components/EmployeesSection/EmployeesSection';
 import { Container } from './components/Container/Container';
+import { FormSection } from './components/FormSection/FormSection';
 
 export const App = () => {
   // const [counter, setCounter] = useState(0);
@@ -18,6 +19,7 @@ export const App = () => {
         <Hero />
         <Container>
           <EmployeesSection />
+          <FormSection />
         </Container>
       </main>
       {/* <p>Counter {counter}</p>

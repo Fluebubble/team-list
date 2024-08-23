@@ -1,9 +1,13 @@
 import styles from './Button.module.scss';
 
-export const Button = ({ children, handleClick = () => {} }) => {
+export const Button = ({
+  type = 'button',
+  handleClick = () => {},
+  children,
+}) => {
   return (
     <button
-      type="button"
+      type={type}
       className={styles.button}
       onClick={handleClick}
     >
