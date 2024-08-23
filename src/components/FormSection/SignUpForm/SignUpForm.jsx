@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { apiClient } from '../../../api/api';
 // import { RotatingLines } from 'react-loader-spinner';
 import styles from './SignUpForm.module.scss';
+import classNames from 'classnames';
 
 const POSITIONS_URL = '/positions';
 
@@ -12,19 +13,19 @@ export const SignUpForm = () => {
   // eslint-disable-next-line no-unused-vars
   const [isLoading, setIsLoading] = useState(false);
 
-  const formik = useFormik({
-    initialValues: {
-      name: '',
-      email: '',
-      phone: '',
-      position: 'Frontend developer',
-    },
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
-    },
-  });
+  // const formik = useFormik({
+  //   initialValues: {
+  //     name: '',
+  //     email: '',
+  //     phone: '',
+  //     position: 'Frontend developer',
+  //   },
+  //   onSubmit: (values) => {
+  //     alert(JSON.stringify(values, null, 2));
+  //   },
+  // });
 
-  console.log('formik', formik);
+  // console.log('formik', formik);
 
   useEffect(() => {
     const getPositions = async () => {
@@ -57,32 +58,60 @@ export const SignUpForm = () => {
         setSubmitting(false);
       }}
     >
-      {({ handleSubmit }) => (
+      {({ handleSubmit, values }) => (
         <Form
           onSubmit={handleSubmit}
           className={styles.form}
         >
-          <Field
-            id="name"
-            name="name"
-            type="text"
-            placeholder="Your name"
-            className={styles.textField}
-          />
-          <Field
-            id="email"
-            name="email"
-            type="email"
-            placeholder="Email"
-            className={styles.textField}
-          />
-          <Field
-            id="phone"
-            name="phone"
-            type="number"
-            placeholder="Phone"
-            className={styles.textField}
-          />
+          <div className={styles.inputWrapper}>
+            <label
+              htmlFor="name"
+              className={classNames(styles.textFieldLabel, {
+                [styles.textFieldLabelOnTop]: values.name.length,
+              })}
+            >
+              Your name
+            </label>
+            <Field
+              id="name"
+              name="name"
+              type="text"
+              // placeholder="Your name"
+              className={styles.textField}
+            />
+          </div>
+          <div className={styles.inputWrapper}>
+            <label
+              htmlFor="email"
+              className={classNames(styles.textFieldLabel, {
+                [styles.textFieldLabelOnTop]: values.email.length,
+              })}
+            >
+              Email
+            </label>
+            <Field
+              id="email"
+              name="email"
+              type="email"
+              className={styles.textField}
+            />
+          </div>
+          <div className={styles.inputWrapper}>
+            <label
+              htmlFor="phone"
+              className={classNames(styles.textFieldLabel, {
+                [styles.textFieldLabelOnTop]: values.phone.length,
+              })}
+            >
+              Phone
+            </label>
+            <Field
+              id="phone"
+              name="phone"
+              type="tel"
+              className={styles.textField}
+            />
+          </div>
           {/* {isLoading && (
             <RotatingLines
               width="50"

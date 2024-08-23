@@ -8,14 +8,48 @@
   // background-color: #9b0000;
 }
 
+.textFieldLabel {
+  position: absolute;
+  top: 14px;
+  left: 17px;
+
+  color: $label-color;
+  pointer-events: none;
+  transition: top 100ms cubic-bezier(.17, .67, .14, .99);
+}
+
+.inputWrapper {
+  position: relative;
+
+  &:focus-within .textFieldLabel {
+    top: -12px;
+    left: 12px;
+    font-size: 14px;
+    padding-inline: 4px;
+    background-color: $background-color;
+  }
+}
+
+.textFieldLabelOnTop {
+  top: -12px;
+  left: 12px;
+  font-size: 14px;
+  padding-inline: 4px;
+  background-color: $background-color;
+}
+
 .textField {
   padding: 13px 16px;
+  width: 100%;
   border: 1px solid #D0CFCF;
   border-radius: 4px;
   background-color: $background-color;
 
+  // &:focus.textFieldLabel {
+  //   font-size: 12px;
+  // }
 
-  &::placeholder {
-    color: #7E7E7E;
-  }
+  // &::placeholder {
+  //   color: #7E7E7E;
+  // }
 }
