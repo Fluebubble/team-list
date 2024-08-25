@@ -1,11 +1,20 @@
+import { formatPhone } from '../../../../helpers';
 import styles from './EmployeeItem.module.scss';
 
 export const EmployeeItem = ({ user }) => {
   const { name, email, phone, position, photo } = user;
+  const formattedPhone = formatPhone(phone);
+  const photoToRender =
+    photo ===
+      'https://frontend-test-assignment-api.abz.agency/images/placeholders/placeholder.png' &&
+    photo !== null
+      ? 'images/photo-cover.svg'
+      : photo;
+
   return (
     <li className={styles.listItem}>
       <img
-        src={photo}
+        src={photoToRender}
         alt={name}
         className={styles.employeeImg}
       />
@@ -15,7 +24,7 @@ export const EmployeeItem = ({ user }) => {
 
         <p className={styles.text}>{email}</p>
 
-        <p className={styles.text}>{phone}</p>
+        <p className={styles.text}>{formattedPhone}</p>
       </div>
     </li>
   );
