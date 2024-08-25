@@ -2,6 +2,7 @@ import { Field, Form, Formik } from 'formik';
 import { Button } from '../../Button/Button';
 import { useEffect, useState } from 'react';
 import { apiClient } from '../../../api/api';
+import * as Yup from 'yup';
 // import { RotatingLines } from 'react-loader-spinner';
 import styles from './SignUpForm.module.scss';
 import classNames from 'classnames';
@@ -12,20 +13,10 @@ export const SignUpForm = () => {
   const [positions, setPositions] = useState([]);
   // eslint-disable-next-line no-unused-vars
   const [isLoading, setIsLoading] = useState(false);
-
-  // const formik = useFormik({
-  //   initialValues: {
-  //     name: '',
-  //     email: '',
-  //     phone: '',
-  //     position: 'Frontend developer',
-  //   },
-  //   onSubmit: (values) => {
-  //     alert(JSON.stringify(values, null, 2));
-  //   },
-  // });
-
-  // console.log('formik', formik);
+  // eslint-disable-next-line no-unused-vars
+  const validationSchema = Yup.object({
+    name: Yup.string().required('Enter your name'),
+  });
 
   useEffect(() => {
     const getPositions = async () => {
@@ -136,6 +127,31 @@ export const SignUpForm = () => {
               </div>
             ))}
           </fieldset>
+          <div className={styles.inputWrapper}>
+            <label
+              htmlFor="file"
+              className={styles.inputFileLabel}
+            >
+              <input
+                id="file"
+                name="file"
+                type="file"
+                className={styles.visuallyHidden}
+                onChange={(event) => {
+                  console.log('file', event.currentTarget.files[0]);
+                }}
+              />
+              <button
+                type="button"
+                className={styles.inputFileButton}
+              >
+                Upload
+              </button>
+              <div className={styles.inputFileInfo}>
+                <p>Item</p>
+              </div>
+            </label>
+          </div>
           <Button type="submit">Sign up</Button>
         </Form>
       )}
