@@ -16,6 +16,7 @@
   }
 
   &:disabled {
+    color: $white;
     background-color: $button-disabled;
   }
 }

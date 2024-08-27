@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { apiClient } from '../../../api/api';
 import { EmployeeItem } from './EmployeeItem/EmployeeItem';
 import { Button } from '../../Button/Button';
-import { RotatingLines } from 'react-loader-spinner';
+import { Preloader } from '../../Preloader/Preloader';
 
 const USERS_TO_LOAD = 6;
 
@@ -74,13 +74,7 @@ export const EmployeesList = () => {
           );
         })}
       </ul>
-      {isLoading && (
-        <RotatingLines
-          width="50"
-          visible={true}
-          strokeColor="#000000"
-        />
-      )}
+      {isLoading && <Preloader />}
       {nextPageUrl && !isLoading && (
         <Button handleClick={() => loadMoreUsers()}>Show more</Button>
       )}
