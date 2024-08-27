@@ -6,6 +6,7 @@ import * as Yup from 'yup';
 // import { RotatingLines } from 'react-loader-spinner';
 import styles from './SignUpForm.module.scss';
 import classNames from 'classnames';
+import { RadioButton } from './RadioButton/RadioButton';
 
 const POSITIONS_URL = '/positions';
 
@@ -14,6 +15,13 @@ export const SignUpForm = () => {
   // eslint-disable-next-line no-unused-vars
   const [isLoading, setIsLoading] = useState(false);
   // eslint-disable-next-line no-unused-vars
+  const [initialValues, setInitialValues] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    position: null,
+    photo: null,
+  });
   const validationSchema = Yup.object({
     name: Yup.string().required('Enter your name'),
   });
@@ -27,6 +35,13 @@ export const SignUpForm = () => {
 
         setPositions(response.data.positions);
         console.log(response);
+
+        if (response.data.positions.length) {
+          setInitialValues((prevInitialValues) => ({
+            ...prevInitialValues,
+            position: response.data.positions[0].name,
+          }));
+        }
       } catch (error) {
         console.log(error.message);
       } finally {
@@ -37,19 +52,20 @@ export const SignUpForm = () => {
     getPositions();
   }, []);
 
+  useEffect(() => {
+    console.log(initialValues);
+  }, [initialValues]);
+
   return (
     <Formik
-      initialValues={{
-        name: '',
-        email: '',
-        phone: '',
-      }}
+      initialValues={initialValues}
       onSubmit={(values, { setSubmitting }) => {
         console.log(values);
         setSubmitting(false);
       }}
+      enableReinitialize
     >
-      {({ handleSubmit, values }) => (
+      {({ handleSubmit, setFieldValue, values }) => (
         <Form
           onSubmit={handleSubmit}
           className={styles.form}
@@ -113,19 +129,30 @@ export const SignUpForm = () => {
               strokeColor="#000000"
             />
           )} */}
-          <fieldset>
-            <legend>Select your position</legend>
-            {positions.map(({ id, name }) => (
-              <div key={id}>
-                <Field
-                  type="radio"
-                  name="position"
-                  value={name}
-                  id={name}
-                />
-                <label htmlFor={name}>{name}</label>
-              </div>
-            ))}
+          <fieldset className={styles.radioFieldset}>
+            <legend className={styles.radioLegend}>Select your position</legend>
+            <div className={styles.radioList}>
+              {positions.map(({ id, name }) => (
+                <div key={id}>
+                  <label htmlFor={name}>
+                    <RadioButton
+                      isSelected={values.position === name}
+                      key={id}
+                    >
+                      {name}
+                    </RadioButton>
+                    <Field
+                      type="radio"
+                      name="position"
+                      value={name}
+                      id={name}
+                      className={styles.visuallyHidden}
+                    />
+                    {/* {name} */}
+                  </label>
+                </div>
+              ))}
+            </div>
           </fieldset>
           <div className={styles.inputWrapper}>
             <label
@@ -138,21 +165,31 @@ export const SignUpForm = () => {
                 type="file"
                 className={styles.visuallyHidden}
                 onChange={(event) => {
-                  console.log('file', event.currentTarget.files[0]);
+                  setFieldValue('photo', event.currentTarget.files[0]);
                 }}
               />
-              <button
+              {/* <button
                 type="button"
                 className={styles.inputFileButton}
               >
                 Upload
-              </button>
+              </button> */}
+              <div className={styles.inputFileButton}>
+                <p>Upload</p>
+              </div>
               <div className={styles.inputFileInfo}>
-                <p>Item</p>
+                {/* <p>Upload your photo</p> */}
+                {values.photo ? (
+                  <p className={styles.fileName}>{values.photo.name}</p>
+                ) : (
+                  <p className={styles.fileNamePlaceholder}>Upload your photo</p>
+                )}
               </div>
             </label>
           </div>
-          <Button type="submit">Sign up</Button>
+          <div className={styles.submitButtonWrapper}>
+            <Button type="submit">Sign up</Button>
+          </div>
         </Form>
       )}
     </Formik>

@@ -1,3 +1,5 @@
+import { FORM_SECTION_ID } from '../../constants';
+import { handleScrollToSection } from '../../helpers';
 import { Button } from '../Button/Button';
 import { Container } from '../Container/Container';
 import styles from './Hero.module.scss';
@@ -17,7 +19,9 @@ export const Hero = () => {
             accessibility in mind. They should also be excited to learn, as the
             world of Front-End Development keeps evolving.
           </p>
-          <Button>Sign up</Button>
+          <Button handleClick={() => handleScrollToSection(FORM_SECTION_ID)}>
+            Sign up
+          </Button>
         </div>
       </Container>
     </section>
