@@ -1,0 +1,15 @@
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.loader {
+  background-image: url("../../../public/images/spinner.svg");
+  width: 48px;
+  height: 48px;
+  margin: 0 auto;
+  animation: spin 1s linear infinite;
+}/*# sourceMappingURL=Preloader.module.css.map */

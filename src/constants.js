@@ -1,9 +1,7 @@
 export const USERS_SECTION_ID = 'users';
 export const FORM_SECTION_ID = 'form';
 
-// export const VALID_PHOTO_TYPES = {
-//   image: ['jpg', 'gif', 'png', 'jpeg', 'svg', 'webp'],
-// };
+export const USERS_TO_LOAD = 6;
 
 // eslint-disable-next-line no-useless-escape
 export const PHONE_REGEXP = /^[\+]{0,1}380([0-9]{9})$/;

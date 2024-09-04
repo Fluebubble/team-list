@@ -1,6 +1,6 @@
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { Button } from '../../Button/Button';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { apiClient } from '../../../api/api';
 import * as Yup from 'yup';
 import styles from './SignUpForm.module.scss';
@@ -8,6 +8,7 @@ import classNames from 'classnames';
 import { RadioButton } from './RadioButton/RadioButton';
 import { Preloader } from '../../Preloader/Preloader';
 import { EMAIL_REGEXP, PHONE_REGEXP } from '../../../constants';
+import { UsersContext } from '../../../context/context';
 
 const POSITIONS_URL = '/positions';
 
@@ -52,17 +53,16 @@ const validationSchema = Yup.object({
     ),
 });
 
-export const SignUpForm = () => {
+export const SignUpForm = ({ isUserRegistered, handleUserRegistration }) => {
+  const { setUsers } = useContext(UsersContext);
   const [positions, setPositions] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [isUserRegistered, setIsUserRegistered] = useState(false);
-  // const [photoFile, setPhotoFile] = useState(null);
 
   useEffect(() => {
     console.log(positions);
   }, [positions]);
 
-  const [initialValues, setInitialValues] = useState({
+  const [initialFormValues, setInitialFormValues] = useState({
     name: '',
     email: '',
     phone: '',
@@ -70,39 +70,47 @@ export const SignUpForm = () => {
     photo: null,
   });
 
-  useEffect(() => {
-    const getPositions = async () => {
-      try {
-        setIsLoading(true);
+  const getPositions = async () => {
+    try {
+      setIsLoading(true);
 
-        const response = await apiClient(POSITIONS_URL);
+      const response = await apiClient(POSITIONS_URL);
 
-        setPositions(response.data.positions);
-        console.log(response);
+      setPositions(response.data.positions);
+      console.log(response);
 
-        if (response.data.positions.length) {
-          setInitialValues((prevInitialValues) => ({
-            ...prevInitialValues,
-            position_id: response.data.positions[0].id,
-          }));
-        }
-      } catch (error) {
-        console.log(error.message);
-      } finally {
-        setIsLoading(false);
+      if (response.data.positions.length) {
+        setInitialFormValues((prevInitialValues) => ({
+          ...prevInitialValues,
+          position_id: response.data.positions[0].id,
+        }));
       }
-    };
+    } catch (error) {
+      console.log(error.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
+  useEffect(() => {
     getPositions();
   }, []);
 
-  useEffect(() => {
-    console.log(initialValues);
-  }, [initialValues]);
+  // useEffect(() => {
+  //   console.log(initialFormValues);
+  // }, [initialFormValues]);
 
-  return (
+  return isUserRegistered ? (
+    <div className={styles.successfulImageWrapper}>
+      <img
+        className={styles.successfulImage}
+        src="images/success-image.svg"
+        alt="Registration completed"
+      />
+    </div>
+  ) : (
     <Formik
-      initialValues={initialValues}
+      initialValues={initialFormValues}
       validationSchema={validationSchema}
       onSubmit={(values, { setSubmitting, errors }) => {
         console.log(values, errors);
@@ -114,13 +122,14 @@ export const SignUpForm = () => {
             console.log(token);
 
             const responseWithApprove = await apiClient.post('/users', values, {
-              // eslint-disable-next-line prettier/prettier
               headers: {
                 Token: token,
                 'Content-Type': 'multipart/form-data',
               },
             });
 
+            handleUserRegistration(true);
+            setUsers()
             console.log(responseWithApprove.data);
           } catch (error) {
             console.log(error);
@@ -128,6 +137,7 @@ export const SignUpForm = () => {
         };
 
         sendFormData();
+        set;
         setSubmitting(false);
       }}
       enableReinitialize
@@ -182,8 +192,8 @@ export const SignUpForm = () => {
                     <ErrorMessage name="name" />
                   </p>
                 )}
-                {/* <p className={styles.tip}>+38 (XXX) XXX - XX - XX</p> */}
               </div>
+
               <div className={styles.inputWrapper}>
                 <label
                   htmlFor="email"
@@ -235,13 +245,6 @@ export const SignUpForm = () => {
                           setFieldValue('phone', '+380');
                         }
                       }}
-                      // onChange={() => {
-                      //   if (field.value.slice(0, 4) !== '+380') {
-                      //     console.log(true);
-                      //     setFieldValue('phone', '+38');
-                      //   }
-                      //   console.log(field.value.slice(0, 4));
-                      // }}
                     />
                   )}
                 </Field>
@@ -314,6 +317,7 @@ export const SignUpForm = () => {
                 >
                   <p>Upload</p>
                 </div>
+
                 <div
                   className={classNames(styles.inputFileInfo, {
                     [styles.inputFileInfoError]: errors.photo && touched.photo,

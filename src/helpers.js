@@ -1,4 +1,4 @@
-import { EMAIL_REGEXP, VALID_PHOTO_TYPES } from './constants';
+import { EMAIL_REGEXP } from './constants';
 
 // scroll to block
 export const handleScrollToSection = (sectionId) => {

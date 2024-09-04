@@ -1,30 +1,34 @@
 import styles from './EmployeesList.module.scss';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { apiClient } from '../../../api/api';
-import { EmployeeItem } from './EmployeeItem/EmployeeItem';
+import { UserCard } from './UserCard/UserCard';
 import { Button } from '../../Button/Button';
 import { Preloader } from '../../Preloader/Preloader';
-
-const USERS_TO_LOAD = 6;
+import { USERS_TO_LOAD } from '../../../constants';
+import { UsersContext } from '../../../context/context';
 
 export const EmployeesList = () => {
-  const [users, setUsers] = useState([]);
+  const { users, setUsers } = useContext(UsersContext);
+  // const [users, setUsers] = useState([]);
   const [nextPageUrl, setNextPageUrl] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
   const loadMoreUsers = async () => {
     setIsLoading(true);
+
     try {
       const response = await apiClient.get(nextPageUrl);
       console.log(response.data);
-      const users = response.data.users;
-      users.sort(
+      const usersFromServer = response.data.users;
+      const nextPageUrlFromServer = response.data.links.next_url;
+
+      usersFromServer.sort(
         (firstUser, secondUser) =>
           secondUser.registration_timestamp - firstUser.registration_timestamp,
       );
 
-      setUsers((prevState) => [...prevState, ...users]);
-      setNextPageUrl(response.data.links.next_url);
+      setUsers((prevState) => [...prevState, ...usersFromServer]);
+      setNextPageUrl(nextPageUrlFromServer);
     } catch (error) {
       console.log(error.message);
     } finally {
@@ -67,7 +71,7 @@ export const EmployeesList = () => {
       <ul className={styles.list}>
         {users.map((user) => {
           return (
-            <EmployeeItem
+            <UserCard
               user={user}
               key={user.id}
             />
