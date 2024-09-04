@@ -1,6 +1,6 @@
 import { USERS_SECTION_ID } from '../../constants';
 import { SecondaryHeading } from '../SecondaryHeading/SecondaryHeading';
-import { EmployeesList } from './EmployeesList/EmployeesList';
+import { UsersList } from './UsersList/UsersList';
 import styles from './EmployeesSection.module.scss';
 
 export const EmployeesSection = () => {
@@ -10,7 +10,7 @@ export const EmployeesSection = () => {
       id={USERS_SECTION_ID}
     >
       <SecondaryHeading title={'Working with GET request'} />
-      <EmployeesList />
+      <UsersList />
     </section>
   );
 };
