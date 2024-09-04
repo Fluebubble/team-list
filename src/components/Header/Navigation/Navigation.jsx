@@ -1,7 +1,7 @@
 import styles from './Navigation.module.scss';
 import { Button } from '../../Button/Button';
 import { handleScrollToSection } from '../../../helpers';
-import { USERS_SECTION_ID } from '../../../constants';
+import { FORM_SECTION_ID, USERS_SECTION_ID } from '../../../constants';
 
 export const Navigation = () => {
   return (
@@ -9,7 +9,9 @@ export const Navigation = () => {
       <Button handleClick={() => handleScrollToSection(USERS_SECTION_ID)}>
         Users
       </Button>
-      <Button>Sign up</Button>
+      <Button handleClick={() => handleScrollToSection(FORM_SECTION_ID)}>
+        Sign up
+      </Button>
     </nav>
   );
 };

@@ -1,0 +1,20 @@
+$radio-button-size: 20px;
+
+.wrapper {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.radioButton {
+  width: $radio-button-size;
+  height: $radio-button-size;
+
+  &Checked {
+    background-image: url('../../../../../public/images/radioButton/radio-button-checked.svg');
+  }
+
+  &Unchecked {
+    background-image: url('../../../../../public/images/radioButton/radio-button-unchecked.svg');
+  }
+}

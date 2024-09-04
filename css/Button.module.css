@@ -1,0 +1,16 @@
+.button {
+  min-width: 100px;
+  width: fit-content;
+  padding: 4px 18px;
+  border-radius: 30px;
+  background-color: #F4E041;
+  transition: background-color 300ms linear;
+}
+.button:hover {
+  background-color: #FFE302;
+  cursor: pointer;
+}
+.button:disabled {
+  color: #FFF;
+  background-color: #B4B4B4;
+}/*# sourceMappingURL=Button.module.css.map */

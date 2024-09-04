@@ -1,7 +1,7 @@
 import { formatPhone } from '../../../../helpers';
-import styles from './EmployeeItem.module.scss';
+import styles from './UserCard.module.scss';
 
-export const EmployeeItem = ({ user }) => {
+export const UserCard = ({ user }) => {
   const { name, email, phone, position, photo } = user;
   const formattedPhone = formatPhone(phone);
   const photoToRender =
