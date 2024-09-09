@@ -4,7 +4,7 @@ import { UsersContext } from '../context/context';
 
 export const useLoadUsers = () => {
   const { setUsers, nextPageUrl, setNextPageUrl } = useContext(UsersContext);
-  const [isLoading, setIsLoading] = useState(false);
+const [isLoading, setIsLoading] = useState(false);
 
   const loadUsers = async () => {
     setIsLoading(true);

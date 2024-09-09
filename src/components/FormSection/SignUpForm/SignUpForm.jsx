@@ -1,17 +1,21 @@
-import { ErrorMessage, Field, Form, Formik } from 'formik';
+import { ErrorMessage, Field, Form, Formik, useFormik } from 'formik';
 import { Button } from '../../Button/Button';
-import { useContext, useEffect, useRef, useState } from 'react';
+import { createContext, useContext, useEffect, useRef, useState } from 'react';
 import { apiClient } from '../../../api/api';
 import * as Yup from 'yup';
 import styles from './SignUpForm.module.scss';
 import classNames from 'classnames';
 import { RadioButton } from './RadioButton/RadioButton';
 import { Preloader } from '../../Preloader/Preloader';
-import { EMAIL_REGEXP, PHONE_REGEXP, USERS_TO_LOAD } from '../../../constants';
+import {
+  EMAIL_REGEXP,
+  PHONE_REGEXP,
+  POSITIONS_URL,
+  USERS_TO_LOAD,
+} from '../../../constants';
 import { UsersContext } from '../../../context/context';
 import useLoadUsers from '../../../hooks/useLoadUsers';
-
-const POSITIONS_URL = '/positions';
+import { TextInput } from './TextInput/TextInput';
 
 const validationSchema = Yup.object({
   name: Yup.string()
@@ -59,12 +63,8 @@ export const SignUpForm = ({ isUserRegistered, setIsUserRegistered }) => {
   const { loadUsers } = useLoadUsers();
 
   const [positions, setPositions] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [arePositionsLoading, setArePositionsLoading] = useState(false);
   const isInitalMount = useRef(true);
-
-  useEffect(() => {
-    console.log(positions);
-  }, [positions]);
 
   useEffect(() => {
     if (isInitalMount.current) {
@@ -86,7 +86,7 @@ export const SignUpForm = ({ isUserRegistered, setIsUserRegistered }) => {
 
   const getPositions = async () => {
     try {
-      setIsLoading(true);
+      setArePositionsLoading(true);
 
       const response = await apiClient(POSITIONS_URL);
 
@@ -102,17 +102,14 @@ export const SignUpForm = ({ isUserRegistered, setIsUserRegistered }) => {
     } catch (error) {
       console.log(error.message);
     } finally {
-      setIsLoading(false);
+      setArePositionsLoading(false);
     }
   };
 
+  //loading positions list to form
   useEffect(() => {
     getPositions();
   }, []);
-
-  // useEffect(() => {
-  //   console.log(initialFormValues);
-  // }, [initialFormValues]);
 
   return isUserRegistered ? (
     <div className={styles.successfulImageWrapper}>
@@ -271,8 +268,35 @@ export const SignUpForm = ({ isUserRegistered, setIsUserRegistered }) => {
                   <p className={styles.tip}>+38 (XXX) XXX - XX - XX</p>
                 )}
               </div>
+
+              <TextInput
+                label="Your name"
+                id="name"
+                name="name"
+                type="text"
+              />
+
+              <TextInput
+                label="Email"
+                id="email"
+                name="email"
+                type="text"
+              />
+
+              <TextInput
+                label="Phone"
+                id="phone"
+                name="phone"
+                type="text"
+                onFocus={(field) => {
+                  if (!field.value) {
+                    setFieldValue('phone', '+380');
+                  }
+                }}
+                tip="+38 (XXX) XXX - XX - XX"
+              />
             </div>
-            {isLoading && <Preloader />}
+            {arePositionsLoading && <Preloader />}
             <fieldset className={styles.radioFieldset}>
               <legend className={styles.radioLegend}>
                 Select your position
