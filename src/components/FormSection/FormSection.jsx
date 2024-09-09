@@ -6,9 +6,6 @@ import { useState } from 'react';
 
 export const FormSection = () => {
   const [isUserRegistered, setIsUserRegistered] = useState(false);
-  const handleUserRegistration = (value) => {
-    setIsUserRegistered(value);
-  };
 
   return (
     <section
@@ -19,12 +16,12 @@ export const FormSection = () => {
         title={
           isUserRegistered
             ? 'User successfully registered'
-            : 'Working with POST requestUser successfully registered'
+            : 'Working with POST request'
         }
       />
       <SignUpForm
         isUserRegistered={isUserRegistered}
-        handleUserRegistration={handleUserRegistration}
+        setIsUserRegistered={setIsUserRegistered}
       />
     </section>
   );
