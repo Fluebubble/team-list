@@ -1,14 +1,15 @@
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { Button } from '../../Button/Button';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { apiClient } from '../../../api/api';
 import * as Yup from 'yup';
 import styles from './SignUpForm.module.scss';
 import classNames from 'classnames';
 import { RadioButton } from './RadioButton/RadioButton';
 import { Preloader } from '../../Preloader/Preloader';
-import { EMAIL_REGEXP, PHONE_REGEXP } from '../../../constants';
+import { EMAIL_REGEXP, PHONE_REGEXP, USERS_TO_LOAD } from '../../../constants';
 import { UsersContext } from '../../../context/context';
+import useLoadUsers from '../../../hooks/useLoadUsers';
 
 const POSITIONS_URL = '/positions';
 
@@ -53,14 +54,27 @@ const validationSchema = Yup.object({
     ),
 });
 
-export const SignUpForm = ({ isUserRegistered, handleUserRegistration }) => {
-  const { setUsers } = useContext(UsersContext);
+export const SignUpForm = ({ isUserRegistered, setIsUserRegistered }) => {
+  const { setUsers, setNextPageUrl } = useContext(UsersContext);
+  const { loadUsers } = useLoadUsers();
+
   const [positions, setPositions] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const isInitalMount = useRef(true);
 
   useEffect(() => {
     console.log(positions);
   }, [positions]);
+
+  useEffect(() => {
+    if (isInitalMount.current) {
+      isInitalMount.current = false;
+
+      return;
+    }
+
+    loadUsers();
+  }, [isUserRegistered]);
 
   const [initialFormValues, setInitialFormValues] = useState({
     name: '',
@@ -128,8 +142,10 @@ export const SignUpForm = ({ isUserRegistered, handleUserRegistration }) => {
               },
             });
 
-            handleUserRegistration(true);
-            setUsers()
+            setIsUserRegistered(true);
+            setUsers([]);
+            setNextPageUrl(`/users?page=1&count=${USERS_TO_LOAD}`);
+
             console.log(responseWithApprove.data);
           } catch (error) {
             console.log(error);
@@ -137,7 +153,6 @@ export const SignUpForm = ({ isUserRegistered, handleUserRegistration }) => {
         };
 
         sendFormData();
-        set;
         setSubmitting(false);
       }}
       enableReinitialize
