@@ -25,7 +25,7 @@ export const TextInput = ({ label, tip = null, ...props }) => {
         {...field}
         {...props}
       />
-      {meta.error && meta.value && meta.touched && (
+      {meta.error && meta.touched && (
         <p className={classNames(styles.tip, styles.tipError)}>{meta.error}</p>
       )}
       {showTip && <p className={styles.tip}>{tip}</p>}
