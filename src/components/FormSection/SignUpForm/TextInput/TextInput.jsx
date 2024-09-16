@@ -4,7 +4,6 @@ import { useField } from 'formik';
 
 export const TextInput = ({ label, tip = null, ...props }) => {
   const [field, meta] = useField(props);
-  console.log(meta);
   const showTip = tip && (!meta.error || !meta.touched);
 
   return (

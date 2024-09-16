@@ -15,7 +15,7 @@ export const Header = () => {
           className={styles.logoLink}
         >
           <img
-            src="images/Logo.svg"
+            src="images/logo.svg"
             alt="Testtask logo"
             className={styles.logo}
           />

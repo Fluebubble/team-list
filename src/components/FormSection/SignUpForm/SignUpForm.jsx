@@ -127,9 +127,8 @@ export const SignUpForm = ({ isUserRegistered, setIsUserRegistered }) => {
           try {
             const responseWithToken = await apiClient.get('/token');
             const token = responseWithToken.data.token;
-            console.log(token);
 
-            const responseWithApprove = await apiClient.post('/users', values, {
+            await apiClient.post('/users', values, {
               headers: {
                 Token: token,
                 'Content-Type': 'multipart/form-data',
@@ -139,10 +138,8 @@ export const SignUpForm = ({ isUserRegistered, setIsUserRegistered }) => {
             setIsUserRegistered(true);
             setUsers([]);
             setNextPageUrl(`/users?page=1&count=${USERS_TO_LOAD}`);
-
-            console.log(responseWithApprove.data);
           } catch (error) {
-            console.log(error);
+            throw new Error(error);
           }
         };
 
@@ -252,7 +249,6 @@ export const SignUpForm = ({ isUserRegistered, setIsUserRegistered }) => {
                   onChange={(event) => {
                     setFieldValue('photo', event.currentTarget.files[0]);
                     setFieldTouched('photo', true, false);
-                    console.log(values);
                   }}
                   accept="image/png, image/jpeg"
                 />
