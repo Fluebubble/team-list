@@ -2,9 +2,11 @@ import { useContext, useState } from 'react';
 import { apiClient } from '../api/api';
 import { UsersContext } from '../context/context';
 
+//reusable hook for loading users by clicking "show more" btn and after submitting form
 export const useLoadUsers = () => {
   const { setUsers, nextPageUrl, setNextPageUrl } = useContext(UsersContext);
-const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorsFromServer, setErrorsFromServer] = useState({});
 
   const loadUsers = async () => {
     setIsLoading(true);
@@ -21,13 +23,21 @@ const [isLoading, setIsLoading] = useState(false);
       setUsers((prevState) => [...prevState, ...usersFromServer]);
       setNextPageUrl(nextPageUrlFromServer);
     } catch (error) {
+      setErrorsFromServer(error);
+
       throw new Error(error);
     } finally {
       setIsLoading(false);
     }
   };
 
-  return { isLoading, nextPageUrl, loadUsers };
+  return {
+    isLoading,
+    nextPageUrl,
+    loadUsers,
+    errorsFromServer,
+    setErrorsFromServer,
+  };
 };
 
 export default useLoadUsers;

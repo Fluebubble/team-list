@@ -1,10 +1,10 @@
-import { ErrorMessage, Field, Form, Formik, useFormik } from 'formik';
-import { Button } from '../../Button/Button';
-import { createContext, useContext, useEffect, useRef, useState } from 'react';
-import { apiClient } from '../../../api/api';
+import classNames from 'classnames';
 import * as Yup from 'yup';
 import styles from './SignUpForm.module.scss';
-import classNames from 'classnames';
+import { ErrorMessage, Field, Form, Formik } from 'formik';
+import { Button } from '../../Button/Button';
+import { useContext, useEffect, useRef, useState } from 'react';
+import { apiClient } from '../../../api/api';
 import { RadioButton } from './RadioButton/RadioButton';
 import { Preloader } from '../../Preloader/Preloader';
 import {
@@ -91,7 +91,6 @@ export const SignUpForm = ({ isUserRegistered, setIsUserRegistered }) => {
       const response = await apiClient(POSITIONS_URL);
 
       setPositions(response.data.positions);
-      console.log(response);
 
       if (response.data.positions.length) {
         setInitialFormValues((prevInitialValues) => ({
@@ -100,7 +99,7 @@ export const SignUpForm = ({ isUserRegistered, setIsUserRegistered }) => {
         }));
       }
     } catch (error) {
-      console.log(error.message);
+      throw new Error(error);
     } finally {
       setArePositionsLoading(false);
     }
@@ -123,9 +122,7 @@ export const SignUpForm = ({ isUserRegistered, setIsUserRegistered }) => {
     <Formik
       initialValues={initialFormValues}
       validationSchema={validationSchema}
-      onSubmit={(values, { setSubmitting, errors }) => {
-        console.log(values, errors);
-
+      onSubmit={(values, { setSubmitting }) => {
         const sendFormData = async () => {
           try {
             const responseWithToken = await apiClient.get('/token');
@@ -227,7 +224,7 @@ export const SignUpForm = ({ isUserRegistered, setIsUserRegistered }) => {
                         name="position_id"
                         value={id}
                         id={name}
-                        className={styles.visuallyHidden}
+                        className="visuallyHidden"
                         onChange={(e) =>
                           setFieldValue('position_id', +e.target.value)
                         }
@@ -251,7 +248,7 @@ export const SignUpForm = ({ isUserRegistered, setIsUserRegistered }) => {
                   id="photo"
                   name="photo"
                   type="file"
-                  className={styles.visuallyHidden}
+                  className="visuallyHidden"
                   onChange={(event) => {
                     setFieldValue('photo', event.currentTarget.files[0]);
                     setFieldTouched('photo', true, false);
@@ -290,11 +287,10 @@ export const SignUpForm = ({ isUserRegistered, setIsUserRegistered }) => {
             </div>
             <div className={styles.submitButtonWrapper}>
               <Button
+                text="Sign up"
                 type="submit"
                 disabled={isSignUpButtonDisabled}
-              >
-                Sign up
-              </Button>
+              />
             </div>
           </Form>
         );

@@ -6,12 +6,14 @@ import { FORM_SECTION_ID, USERS_SECTION_ID } from '../../../constants';
 export const Navigation = () => {
   return (
     <nav className={styles.nav}>
-      <Button handleClick={() => handleScrollToSection(USERS_SECTION_ID)}>
-        Users
-      </Button>
-      <Button handleClick={() => handleScrollToSection(FORM_SECTION_ID)}>
-        Sign up
-      </Button>
+      <Button
+        text="Users"
+        handleClick={() => handleScrollToSection(USERS_SECTION_ID)}
+      />
+      <Button
+        text="Sign up"
+        handleClick={() => handleScrollToSection(FORM_SECTION_ID)}
+      />
     </nav>
   );
 };

@@ -1,6 +1,5 @@
 import axios from 'axios';
-
-const BASE_URL = 'https://frontend-test-assignment-api.abz.agency/api/v1';
+import { BASE_URL } from '../constants';
 
 export const apiClient = axios.create({
   baseURL: BASE_URL,

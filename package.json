@@ -1,5 +1,5 @@
 {
-  "homepage": "https://fluebubble.github.io/",
+  "homepage": "https://fluebubble.github.io/team-list",
   "name": "abz-test-assignment",
   "version": "0.1.0",
   "private": true,
@@ -13,8 +13,8 @@
     "modern-normalize": "^2.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-loader-spinner": "^6.1.6",
     "react-scripts": "5.0.1",
+    "react-tooltip": "^5.26.3",
     "sass": "^1.72.0",
     "stylelint-scss": "^6.2.1",
     "web-vitals": "^2.1.4",

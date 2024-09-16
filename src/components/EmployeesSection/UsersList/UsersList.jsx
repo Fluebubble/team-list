@@ -29,7 +29,10 @@ export const UsersList = () => {
       </ul>
       {isLoading && <Preloader />}
       {nextPageUrl && !isLoading && (
-        <Button handleClick={() => loadUsers()}>Show more</Button>
+        <Button
+          handleClick={() => loadUsers()}
+          text="Show more"
+        />
       )}
     </div>
   );

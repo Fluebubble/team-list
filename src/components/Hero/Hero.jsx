@@ -19,9 +19,10 @@ export const Hero = () => {
             accessibility in mind. They should also be excited to learn, as the
             world of Front-End Development keeps evolving.
           </p>
-          <Button handleClick={() => handleScrollToSection(FORM_SECTION_ID)}>
-            Sign up
-          </Button>
+          <Button
+            text="Sign up"
+            handleClick={() => handleScrollToSection(FORM_SECTION_ID)}
+          />
         </div>
       </Container>
     </section>

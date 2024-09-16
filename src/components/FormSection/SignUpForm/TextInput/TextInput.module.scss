@@ -1,4 +1,5 @@
-@import '../../../../styles';
+@import '../../../../styles/variables';
+@import '../../../../styles/mixins/responsive';
 
 $input-field-height: 54px;
 $input-border-radius: 4px;
@@ -9,7 +10,9 @@ $input-border-radius: 4px;
   left: 16px;
 
   color: $label-color;
+
   pointer-events: none;
+
   transition: top 100ms cubic-bezier(.17, .67, .14, .99);
 }
 
@@ -23,8 +26,11 @@ $input-border-radius: 4px;
   &:focus-within .textFieldLabel {
     top: -12px;
     left: 12px;
-    font-size: 14px;
+
     padding-inline: 4px;
+
+    font-size: 14px;
+
     background-color: $background-color;
   }
 }
@@ -32,8 +38,11 @@ $input-border-radius: 4px;
 .textFieldLabelOnTop {
   top: -12px;
   left: 12px;
-  font-size: 14px;
+
   padding-inline: 4px;
+
+  font-size: 14px;
+
   background-color: $background-color;
 
   &Error {
@@ -42,22 +51,23 @@ $input-border-radius: 4px;
 }
 
 .textField {
-  padding: 0 16px;
   height: $input-field-height;
   width: 100%;
+  padding: 0 16px;
+
   border: 1px solid #D0CFCF;
   border-radius: $input-border-radius;
   background-color: $background-color;
 
   &:focus {
     outline: none;
-    border-width: 2px;
     border-color: $black-87;
+    border-width: 2px;
   }
 
   &Error {
-    border-color: $error-color;
     border-width: 2px;
+    border-color: $error-color;
   }
 
   &Error:focus {
@@ -70,6 +80,7 @@ $input-border-radius: 4px;
   position: absolute;
   bottom: -18px;
   left: 16px;
+  
   font-size: 12px;
   line-height: 14px;
   color: $label-color;

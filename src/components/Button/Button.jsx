@@ -1,9 +1,9 @@
 import styles from './Button.module.scss';
 
 export const Button = ({
+  text,
   type = 'button',
   handleClick = () => {},
-  children,
   disabled = false,
 }) => {
   return (
@@ -13,7 +13,7 @@ export const Button = ({
       onClick={handleClick}
       disabled={disabled}
     >
-      {children}
+      {text}
     </button>
   );
 };

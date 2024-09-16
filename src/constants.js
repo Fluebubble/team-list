@@ -1,8 +1,11 @@
 // blocks ids
 export const USERS_SECTION_ID = 'users';
 export const FORM_SECTION_ID = 'form';
+export const HEADER_ID = 'header';
 
 // API values
+export const BASE_URL =
+  'https://frontend-test-assignment-api.abz.agency/api/v1';
 export const USERS_TO_LOAD = 6;
 export const POSITIONS_URL = '/positions';
 
