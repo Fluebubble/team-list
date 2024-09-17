@@ -10,28 +10,30 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-position: 51.2% bottom;
-
+  
   &::before {
     content: '';
-
+    
     position: absolute;
     inset: 0;
     z-index: 10;
-
+    
     background-color: rgb(0 0 0 / 50%);
   }
-
+  
   @include onTablet {
     background-image: url("../../../public/images/hero/hero-cover-tablet.jpg");
     padding: 89px 162px 88px;
   }
-
+  
   @include onDesktop {
     background-image: url("../../../public/images/hero/hero-cover-desktop.jpg");
+    background-position: 50% bottom;
     padding: 164px 262px 163px;
   }
-
+  
   @include onBigDesktop {
+    background-image: url("../../../public/images/hero/hero-cover-bigdesktop.jpg");
     padding: 164px 395px 163px;
   }
 }
