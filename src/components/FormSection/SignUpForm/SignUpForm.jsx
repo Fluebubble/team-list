@@ -1,17 +1,21 @@
+import classNames from 'classnames';
+import * as Yup from 'yup';
+import styles from './SignUpForm.module.scss';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { Button } from '../../Button/Button';
 import { useContext, useEffect, useRef, useState } from 'react';
 import { apiClient } from '../../../api/api';
-import * as Yup from 'yup';
-import styles from './SignUpForm.module.scss';
-import classNames from 'classnames';
 import { RadioButton } from './RadioButton/RadioButton';
 import { Preloader } from '../../Preloader/Preloader';
-import { EMAIL_REGEXP, PHONE_REGEXP, USERS_TO_LOAD } from '../../../constants';
+import {
+  EMAIL_REGEXP,
+  PHONE_REGEXP,
+  POSITIONS_URL,
+  USERS_TO_LOAD,
+} from '../../../constants';
 import { UsersContext } from '../../../context/context';
 import useLoadUsers from '../../../hooks/useLoadUsers';
-
-const POSITIONS_URL = '/positions';
+import { TextInput } from './TextInput/TextInput';
 
 const validationSchema = Yup.object({
   name: Yup.string()
@@ -59,12 +63,8 @@ export const SignUpForm = ({ isUserRegistered, setIsUserRegistered }) => {
   const { loadUsers } = useLoadUsers();
 
   const [positions, setPositions] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [arePositionsLoading, setArePositionsLoading] = useState(false);
   const isInitalMount = useRef(true);
-
-  useEffect(() => {
-    console.log(positions);
-  }, [positions]);
 
   useEffect(() => {
     if (isInitalMount.current) {
@@ -86,12 +86,11 @@ export const SignUpForm = ({ isUserRegistered, setIsUserRegistered }) => {
 
   const getPositions = async () => {
     try {
-      setIsLoading(true);
+      setArePositionsLoading(true);
 
       const response = await apiClient(POSITIONS_URL);
 
       setPositions(response.data.positions);
-      console.log(response);
 
       if (response.data.positions.length) {
         setInitialFormValues((prevInitialValues) => ({
@@ -100,19 +99,16 @@ export const SignUpForm = ({ isUserRegistered, setIsUserRegistered }) => {
         }));
       }
     } catch (error) {
-      console.log(error.message);
+      throw new Error(error);
     } finally {
-      setIsLoading(false);
+      setArePositionsLoading(false);
     }
   };
 
+  //loading positions list to form
   useEffect(() => {
     getPositions();
   }, []);
-
-  // useEffect(() => {
-  //   console.log(initialFormValues);
-  // }, [initialFormValues]);
 
   return isUserRegistered ? (
     <div className={styles.successfulImageWrapper}>
@@ -126,16 +122,13 @@ export const SignUpForm = ({ isUserRegistered, setIsUserRegistered }) => {
     <Formik
       initialValues={initialFormValues}
       validationSchema={validationSchema}
-      onSubmit={(values, { setSubmitting, errors }) => {
-        console.log(values, errors);
-
+      onSubmit={(values, { setSubmitting }) => {
         const sendFormData = async () => {
           try {
             const responseWithToken = await apiClient.get('/token');
             const token = responseWithToken.data.token;
-            console.log(token);
 
-            const responseWithApprove = await apiClient.post('/users', values, {
+            await apiClient.post('/users', values, {
               headers: {
                 Token: token,
                 'Content-Type': 'multipart/form-data',
@@ -145,10 +138,8 @@ export const SignUpForm = ({ isUserRegistered, setIsUserRegistered }) => {
             setIsUserRegistered(true);
             setUsers([]);
             setNextPageUrl(`/users?page=1&count=${USERS_TO_LOAD}`);
-
-            console.log(responseWithApprove.data);
           } catch (error) {
-            console.log(error);
+            throw new Error(error);
           }
         };
 
@@ -183,96 +174,37 @@ export const SignUpForm = ({ isUserRegistered, setIsUserRegistered }) => {
             className={styles.form}
           >
             <div className={styles.textFieldsWrapper}>
-              <div className={styles.inputWrapper}>
-                <label
-                  htmlFor="name"
-                  className={classNames(styles.textFieldLabel, {
-                    [styles.textFieldLabelOnTop]: values.name.length,
-                    [styles.textFieldLabelOnTopError]:
-                      errors.name && touched.name,
-                  })}
-                >
-                  Your name
-                </label>
-                <Field
-                  id="name"
-                  name="name"
-                  type="text"
-                  className={classNames(styles.textField, {
-                    [styles.textFieldError]: errors.name && touched.name,
-                  })}
-                />
-                {errors.name && touched.name && (
-                  <p className={classNames(styles.tip, styles.tipError)}>
-                    <ErrorMessage name="name" />
-                  </p>
-                )}
-              </div>
+              <TextInput
+                label="Your name"
+                id="name"
+                name="name"
+                type="text"
+              />
 
-              <div className={styles.inputWrapper}>
-                <label
-                  htmlFor="email"
-                  className={classNames(styles.textFieldLabel, {
-                    [styles.textFieldLabelOnTop]: values.email.length,
-                    [styles.textFieldLabelOnTopError]:
-                      errors.email && touched.email,
-                  })}
-                >
-                  Email
-                </label>
-                <Field
-                  id="email"
-                  name="email"
-                  type="text"
-                  className={classNames(styles.textField, {
-                    [styles.textFieldError]: errors.email && touched.email,
-                  })}
-                />
-                <p className={classNames(styles.tip, styles.tipError)}>
-                  <ErrorMessage name="email" />
-                </p>
-              </div>
+              <TextInput
+                label="Email"
+                id="email"
+                name="email"
+                type="text"
+              />
 
-              <div className={styles.inputWrapper}>
-                <label
-                  htmlFor="phone"
-                  className={classNames(styles.textFieldLabel, {
-                    [styles.textFieldLabelOnTop]: values.phone.length,
-                    [styles.textFieldLabelOnTopError]:
-                      errors.phone && touched.phone,
-                  })}
-                >
-                  Phone
-                </label>
-                <Field
-                  id="phone"
-                  name="phone"
-                  type="text"
-                >
-                  {({ field }) => (
-                    <input
-                      {...field}
-                      className={classNames(styles.textField, {
-                        [styles.textFieldError]: errors.phone && touched.phone,
-                      })}
-                      onFocus={() => {
-                        if (!field.value) {
-                          setFieldValue('phone', '+380');
-                        }
-                      }}
-                    />
-                  )}
-                </Field>
-                {errors.phone && touched.phone ? (
-                  <p className={classNames(styles.tip, styles.tipError)}>
-                    <ErrorMessage name="phone" />
-                  </p>
-                ) : (
-                  <p className={styles.tip}>+38 (XXX) XXX - XX - XX</p>
-                )}
-              </div>
+              <TextInput
+                label="Phone"
+                id="phone"
+                name="phone"
+                type="text"
+                onFocus={() => {
+                  if (!values.phone) {
+                    setFieldValue('phone', '+380');
+                  }
+                }}
+                onChange={(e) => {
+                  setFieldValue('phone', e.target.value);
+                }}
+                tip="+38 (XXX) XXX - XX - XX"
+              />
             </div>
-            {isLoading && <Preloader />}
+            {arePositionsLoading && <Preloader />}
             <fieldset className={styles.radioFieldset}>
               <legend className={styles.radioLegend}>
                 Select your position
@@ -292,7 +224,7 @@ export const SignUpForm = ({ isUserRegistered, setIsUserRegistered }) => {
                         name="position_id"
                         value={id}
                         id={name}
-                        className={styles.visuallyHidden}
+                        className="visuallyHidden"
                         onChange={(e) =>
                           setFieldValue('position_id', +e.target.value)
                         }
@@ -316,11 +248,10 @@ export const SignUpForm = ({ isUserRegistered, setIsUserRegistered }) => {
                   id="photo"
                   name="photo"
                   type="file"
-                  className={styles.visuallyHidden}
+                  className="visuallyHidden"
                   onChange={(event) => {
                     setFieldValue('photo', event.currentTarget.files[0]);
                     setFieldTouched('photo', true, false);
-                    console.log(values);
                   }}
                   accept="image/png, image/jpeg"
                 />
@@ -355,11 +286,10 @@ export const SignUpForm = ({ isUserRegistered, setIsUserRegistered }) => {
             </div>
             <div className={styles.submitButtonWrapper}>
               <Button
+                text="Sign up"
                 type="submit"
                 disabled={isSignUpButtonDisabled}
-              >
-                Sign up
-              </Button>
+              />
             </div>
           </Form>
         );

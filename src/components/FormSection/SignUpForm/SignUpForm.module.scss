@@ -1,4 +1,4 @@
-@import '../../../styles';
+@import '../../../styles/variables/colors';
 
 $input-field-height: 54px;
 $input-border-radius: 4px;
@@ -9,107 +9,18 @@ $input-border-radius: 4px;
 
   margin: 0 auto;
   max-width: 380px;
-
-  // @include onTablet {}
-
-  // background-color: #9b0000;
 }
 
 .textFieldsWrapper {
   display: flex;
   flex-direction: column;
   gap: 50px;
+
   margin-bottom: 43px;
-}
-
-.textFieldLabel {
-  position: absolute;
-  top: 14px;
-  left: 16px;
-
-  color: $label-color;
-  pointer-events: none;
-  transition: top 100ms cubic-bezier(.17, .67, .14, .99);
-}
-
-.inputWrapper {
-  position: relative;
-
-  &BottomMargin {
-    margin-bottom: 50px;
-  }
-
-  &:focus-within .textFieldLabel {
-    top: -12px;
-    left: 12px;
-    font-size: 14px;
-    padding-inline: 4px;
-    background-color: $background-color;
-  }
-}
-
-.textFieldLabelOnTop {
-  top: -12px;
-  left: 12px;
-  font-size: 14px;
-  padding-inline: 4px;
-  background-color: $background-color;
-
-  &Error {
-    color: $error-color;
-  }
 }
 
 .textFieldLabelError {
   color: $error-color;
-}
-
-.textField {
-  padding: 0 16px;
-  height: $input-field-height;
-  width: 100%;
-  border: 1px solid #D0CFCF;
-  border-radius: $input-border-radius;
-  background-color: $background-color;
-
-  &:focus {
-    outline: none;
-    border-width: 2px;
-    border-color: $black-87;
-  }
-
-  &Error {
-    border-color: $error-color;
-    border-width: 2px;
-  }
-
-  &Error:focus {
-    border-color: $error-color;
-    outline-color: $error-color;
-  }
-}
-
-.tip {
-  position: absolute;
-  bottom: -18px;
-  left: 16px;
-  font-size: 12px;
-  line-height: 14px;
-  color: $label-color;
-
-  &Error {
-    color: $error-color;
-  }
-
-  @include onTablet {
-    left: 17px;
-    bottom: -14px;
-  }
-
-  @include onDesktop {
-    left: 16px;
-    bottom: -18px;
-  }
 }
 
 .radioFieldset {
@@ -133,14 +44,17 @@ $input-border-radius: 4px;
 
 .inputFileButton {
   position: relative;
+
   display: flex;
   align-items: center;
   justify-content: center;
   height: $input-field-height;
   width: 83px;
   min-width: 83px;
+
   border: 1px solid $black-87;
   border-radius: $input-border-radius 0 0 $input-border-radius;
+
   transition: border-color 300ms linear;
 
   &Error {
@@ -149,15 +63,18 @@ $input-border-radius: 4px;
 }
 
 .inputFileInfo {
-  padding: 0 16px;
   display: flex;
   align-items: center;
-  height: $input-field-height;
   flex-grow: 1;
+
+  height: $input-field-height;
+  padding: 0 16px;
+
   overflow: hidden;
   border: 1px solid #D0CFCF;
   border-left: none;
   border-radius: 0 $input-border-radius $input-border-radius 0;
+  
   transition: border-color 300ms linear;
 
   &Error {
@@ -188,4 +105,12 @@ $input-border-radius: 4px;
 .successfulImageWrapper {
   display: flex;
   justify-content: center;
+}
+
+.inputWrapper {
+  position: relative;
+
+  &BottomMargin {
+    margin-bottom: 50px;
+  }
 }

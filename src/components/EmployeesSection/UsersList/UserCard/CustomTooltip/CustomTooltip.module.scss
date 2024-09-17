@@ -1,0 +1,11 @@
+@import '../../../../../styles/variables';
+
+.tooltip {
+  padding: 3px 16px !important;
+
+  color: $white !important;
+
+  background-color: $black-87 !important;
+  border-radius: 4px !important;
+  transform: translateX(-15px);
+}

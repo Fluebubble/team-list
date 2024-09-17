@@ -1,29 +1,47 @@
-@import '../../styles';
+@import '../../styles/variables/colors';
+@import '../../styles/mixins/typography';
 
 .hero {
-  background:
-    linear-gradient(rgba(0 0 0 / 50%), rgba(0 0 0 / 50%)),
-    url("../../../public/images/hero-cover.jpeg");
-  background-size: 350% auto;
-  background-position: bottom;
-  background-repeat: no-repeat;
+  position: relative;
 
   padding: 40px 0 71px;
 
+  background-image: url("../../../public/images/hero/hero-cover-mobile.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 51.2% bottom;
+  
+  &::before {
+    content: '';
+    
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+    
+    background-color: rgb(0 0 0 / 50%);
+  }
+  
   @include onTablet {
+    background-image: url("../../../public/images/hero/hero-cover-tablet.jpg");
     padding: 89px 162px 88px;
   }
-
+  
   @include onDesktop {
+    background-image: url("../../../public/images/hero/hero-cover-desktop.jpg");
+    background-position: 50% bottom;
     padding: 164px 262px 163px;
   }
-
+  
   @include onBigDesktop {
+    background-image: url("../../../public/images/hero/hero-cover-bigdesktop.jpg");
     padding: 164px 395px 163px;
   }
 }
 
 .heroContent {
+  position: relative;
+  z-index: 20;
+
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -33,7 +51,6 @@
   margin-bottom: 21px;
 
   @include typographyHeading1;
-
   color: $white;
   text-align: center;
 }
@@ -43,6 +60,5 @@
 
   @include typographyBody;
   color: $white;
-
   text-align: center;
 }
