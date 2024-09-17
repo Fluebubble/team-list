@@ -193,10 +193,13 @@ export const SignUpForm = ({ isUserRegistered, setIsUserRegistered }) => {
                 id="phone"
                 name="phone"
                 type="text"
-                onFocus={(field) => {
-                  if (!field.value) {
+                onFocus={() => {
+                  if (!values.phone) {
                     setFieldValue('phone', '+380');
                   }
+                }}
+                onChange={(e) => {
+                  setFieldValue('phone', e.target.value);
                 }}
                 tip="+38 (XXX) XXX - XX - XX"
               />
